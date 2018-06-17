@@ -2,13 +2,16 @@ package com.valdyrtorres.helpdesk.api.security.controller;
 
 import org.springframework.security.core.Authentication;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valdyrtorres.helpdesk.api.entity.User;
+import com.valdyrtorres.helpdesk.api.security.config.WebSecurityConfig;
 import com.valdyrtorres.helpdesk.api.security.jwt.JwtAuthenticationRequest;
 import com.valdyrtorres.helpdesk.api.security.jwt.JwtTokenUtil;
 import com.valdyrtorres.helpdesk.api.security.model.CurrentUser;
@@ -27,7 +31,7 @@ import com.valdyrtorres.helpdesk.api.service.UserService;
 @CrossOrigin(origins="*")
 public class AuthenticationRestController {
 
-	//@Autowired
+	@Autowired
 	private AuthenticationManager authenticationManager;
 	
 	@Autowired
@@ -50,7 +54,7 @@ public class AuthenticationRestController {
 		);
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
 		final User user = userService.findByEmail(authenticationRequest.getEmail());

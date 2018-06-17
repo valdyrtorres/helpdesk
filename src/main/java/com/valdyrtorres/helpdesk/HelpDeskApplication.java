@@ -24,6 +24,7 @@ public class HelpDeskApplication {
 		};
 	}
 	
+	// insere o usuário no banco
 	private void initUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		User admin = new User();
 		admin.setEmail("admin@helpdesk.com");
