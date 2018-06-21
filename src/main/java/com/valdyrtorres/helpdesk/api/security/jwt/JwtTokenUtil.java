@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,8 @@ public class JwtTokenUtil implements Serializable{
 	static final String CLAIM_KEY_CREATED = "created";
 	static final String CLAIM_KEY_EXPIRED = "exp";
 	
+	private final Log logger = LogFactory.getLog(this.getClass());
+	
 	@Value("${jwt.secret}")
 	private String secret;
 	
@@ -34,6 +38,7 @@ public class JwtTokenUtil implements Serializable{
 			final Claims claims = getClaimsFromToken(token);
 			username = claims.getSubject();
 		} catch (Exception e) {
+			logger.error("HelpDesk-API | JwtTokenUtil erro getUsernameFromToken:" + e.getMessage());
 			username = null;
 		}
 		
@@ -46,6 +51,7 @@ public class JwtTokenUtil implements Serializable{
 			final Claims claims = getClaimsFromToken(token);
 			expiration = claims.getExpiration();
 		} catch (Exception e) {
+			logger.error("HelpDesk-API | JwtTokenUtil erro getExpirationDateFromToken:" + e.getMessage());
 			expiration = null;
 		}
 		return expiration;
@@ -54,8 +60,9 @@ public class JwtTokenUtil implements Serializable{
 	private Claims getClaimsFromToken(String token) {
 		Claims claims;
 		try {
-			claims = Jwts.parser().setSigningKey(secret).parseClaimsJwt(token).getBody();
+			claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 		} catch (Exception e) {
+			logger.error("HelpDesk-API | JwtTokenUtil erro getClaimsFromToken:" + e.getMessage());
 			claims = null;
 		}
 		return claims;
