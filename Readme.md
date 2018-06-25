@@ -132,3 +132,6 @@ Exemplo de resposta:
 }
 
 
+Confira os proceimentos juntamente com o Compass (cliente do mongo) para verificar se houve alterções no banco
+
+Testando o TicketController com Postman
