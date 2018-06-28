@@ -135,3 +135,125 @@ Exemplo de resposta:
 Confira os proceimentos juntamente com o Compass (cliente do mongo) para verificar se houve alterções no banco
 
 Testando o TicketController com Postman
+
+1o. Obter o token
+
+Selecione POST
+Use a url: http://localhost:8080/api/auth
+
+Na aba Body, escolha raw e a opção JSON(application/json)
+Obs: Esse é o usuário default de administração criado ao iniciarmos nossa aplicação.
+
+No corpo digite:
+{
+    "email":"admin@helpdesk.com",
+    "password":"123456"
+}
+
+Clique o botão Send. A seguir você obtem o token. Copie esse token para a clipboard
+Exemplo de resposta:
+{
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBoZWxwZGVzay5jb20iLCJjcmVhdGVkIjoxNTI5NTQ5Nzg4NjQxLCJleHAiOjE1MzAxNTQ1ODh9.CBqF3PgHA_8B816IR4KYXwbmDkARwCpJO1nYNpQRKe9OkG1A3G7eZW3WLqFw_gxnufIp9F_ZSWGSYpVzHpUfpA",
+    "user": {
+        "id": "5b24481ab08b832fc08614bb",
+        "email": "admin@helpdesk.com",
+        "password": null,
+        "profile": "ROLE_ADMIN"
+    }
+}
+
+2o. Crie o usuário.
+
+Abra uma nova entrada no Postman com o botão New:
+Selecione POST
+use a url: http://localhost:8080/api/user
+Na aba Headers, crie o campo Authorization e nele coloque o token que você obteve do POST anterior.
+
+Vá em Body e escolha raw e a opção JSON(application/json)
+
+No corpo digite o usuário que você vai incluir com as opções correspondentes
+{
+  "email":"technician@gmail.com",
+  "password": "123456",
+  "profile" : "ROLE_TECHNICIAN"
+}
+clique no botão Send
+
+Criar o customer
+No corpo digite o usuário que você vai incluir com as opções correspondentes
+{
+  "email":"customer@gmail.com",
+  "password": "123456",
+  "profile" : "ROLE_CUSTOMER"
+}
+clique no botão Send
+
+
+3o. Obter o token do Customer
+
+Selecione POST
+Use a url: http://localhost:8080/api/auth
+
+Na aba Body, escolha raw e a opção JSON(application/json)
+Obs: Esse é o usuário default de administração criado ao iniciarmos nossa aplicação.
+
+No corpo digite:
+{
+    "email":"customer@gmail.com",
+    "password":"123456"
+}
+
+Clique o botão Send. A seguir você obtem o token. Copie esse token para a clipboard
+Exemplo de resposta:
+{
+    "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjdXN0b21lckBnbWFpbC5jb20iLCJjcmVhdGVkIjoxNTMwMjIyODM5MTk0LCJleHAiOjE1MzA4Mjc2Mzl9.R-w6LK9hjT6rRdVkaSBndF0KrxuMG_14vk7MQipPzdQrZfA7dA1DE1i-oupIEUqkewtA5rZzXV8P1cfUbsZpyA",
+    "user": {
+        "id": "5b3556022491b7a9c0f61762",
+        "email": "customer@gmail.com",
+        "password": null,
+        "profile": "ROLE_CUSTOMER"
+    }
+}
+
+
+4o. Criar o ticket.
+
+Abra uma nova entrada no Postman com o botão New:
+Selecione POST
+use a url: http://localhost:8080/api/ticket
+Na aba Headers, crie o campo Authorization e nele coloque o token que você obteve do POST do customer para obter o token.
+
+Vá em Body e escolha raw e a opção JSON(application/json)
+
+No corpo digite o usuário que você vai incluir com as opções correspondentes
+{
+  "title":"Test Ticket 1",
+  "priority": "Normal",
+  "description" : "Test Description",
+  "image" : "byte test"
+}
+clique no botão Send
+Exemplo de resposta:
+{
+    "data": {
+        "id": "5b355a302491b7aae90f0499",
+        "user": {
+            "id": "5b3556022491b7a9c0f61762",
+            "email": "customer@gmail.com",
+            "password": "$2a$10$lE2VISxNXpvgs/WFua3c0eEt9CKu5fPyqKSCtU602lFycshDkaVo.",
+            "profile": "ROLE_CUSTOMER"
+        },
+        "date": 1530223152212,
+        "title": "Test Ticket 1",
+        "number": 4152,
+        "status": "New",
+        "priority": "Normal",
+        "assignedUser": null,
+        "description": "Test Description",
+        "image": "byte test",
+        "changes": null
+    },
+    "errors": []
+}
+
+6;32min
