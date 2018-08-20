@@ -8,7 +8,6 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
