@@ -191,14 +191,14 @@ public class TicketController {
    	public ResponseEntity<Response<Page<Ticket>>> findByParams(HttpServletRequest request, 
    			@PathVariable("page") int page, 
    			@PathVariable("count") int count,
-   			@PathVariable("count") Integer number,
-   			@PathVariable("count") String title,
-   			@PathVariable("count") String status,
-   			@PathVariable("count") String priority,
+   			@PathVariable("number") Integer number,
+   			@PathVariable("title") String title,
+   			@PathVariable("status") String status,
+   			@PathVariable("priority") String priority,
    			@PathVariable("count") boolean assigned) {
     	title = title.equals("uninformed") ? "" : title;
     	status = status.equals("uninformed") ? "" : status;
-    	priority = priority.equals("uninformed") ? "" : priority;
+    	priority = priority.equals("uninformed") ? "" : priority;   	
     	
    		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
    		Page<Ticket> tickets = null;
@@ -309,7 +309,7 @@ public class TicketController {
     	summary.setAmountDisapproved(amountDisapproved);
     	summary.setAmountAssigned(amountAssigned);
     	summary.setAmountClosed(amountClosed);
-    	
+    	response.setData(summary);
     	return ResponseEntity.ok(response);
     }
 }
