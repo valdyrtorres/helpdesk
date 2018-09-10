@@ -82,7 +82,7 @@ Exemplo de resposta:
     "errors": []
 }
 
-4o. Pesquisa por id (GET)
+4o. Pesquisa usuário por id (GET)
 Abra uma nova entrada no Postman com o botão New:
 Selecione GET
 Pegue o id do usuário que você quer consultar e inclua na url
@@ -100,10 +100,10 @@ Exemplo de resposta:
     "errors": []
 }
 
-5o. Delete por id
+5o. Delete usuário por id
 Abra uma nova entrada no Postman com o botão New:
 Selecione DELETE
-Pegue o id do usuário que você quer consultar e inclua na url
+Pegue o id do usuário que você quer deletar e inclua na url
 use a url: http://localhost:8080/api/user/5b2f1ff8bc3ecb2ef84fb870
 Na aba Headers, crie o campo Authorization e nele coloque o token que você obteve do POST do 1o. passo.
 clique no botão Send
@@ -132,7 +132,7 @@ Exemplo de resposta:
 }
 
 
-Confira os proceimentos juntamente com o Compass (cliente do mongo) para verificar se houve alterções no banco
+Confira os procedimentos juntamente com o Compass (cliente do mongo) para verificar se houve alterções no banco
 
 Testando o TicketController com Postman
 
@@ -162,7 +162,7 @@ Exemplo de resposta:
     }
 }
 
-2o. Crie o usuário.
+2o. Crie os usuários technician e customer.
 
 Abra uma nova entrada no Postman com o botão New:
 Selecione POST
@@ -187,7 +187,6 @@ No corpo digite o usuário que você vai incluir com as opções correspondentes
   "profile" : "ROLE_CUSTOMER"
 }
 clique no botão Send
-
 
 3o. Obter o token do Customer
 
@@ -303,7 +302,7 @@ Exemplo de resposta:
     "errors": []
 }
 
-6o. Pesquisa por id (GET)
+6o. Pesquisa ticket por id (GET)
 Abra uma nova entrada no Postman com o botão New:
 Selecione GET
 Pegue o id do usuário que você quer consultar e inclua na url
@@ -339,7 +338,7 @@ Exemplo de resposta:
     "errors": []
 }
 
-7o. Delete por id (GET)
+7o. Delete ticket por id (GET)
 Abra uma nova entrada no Postman com o botão New:
 Selecione DELETE
 Pegue o id do usuário que você quer consultar e inclua na url
@@ -352,13 +351,15 @@ Exemplo de resposta:
     "errors": []
 }
 
-8o. Pesquisa todos usuários (GET)
+8o. Pesquisa todos os tickets (GET) - Obs A consulta é feita por página e número de registros
 Inclua alguns tickets para testar
 Abra uma nova entrada no Postman com o botão New:
 Selecione GET
-use a url: http://localhost:8080/api/user/0/4
+use a url: http://localhost:8080/api/ticket/0/4
 onde 0 significa a primeira página e quero que traga 4 registros
 Na aba Headers, crie o campo Authorization e nele coloque o token que você obteve do POST do 1o. passo.
+
+
 clique no botão Send
 Exemplo de resposta:
 {
@@ -477,7 +478,7 @@ Exemplo de resposta:
 Você deve comentar o parâmetro "assigned" dentro do código e criar a variável "assigned" com valor true.
 Abra uma nova entrada no Postman com o botão New:
 Selecione GET
-use a url: localhost:8080/api/ticket/0/4/0/Test/New/Normal
+use a url: localhost:8080/api/ticket/0/4/0/Test/New/Normal/false
 onde 0 significa a primeira página e quero que traga 4 registros
 Na aba Headers, crie o campo Authorization e nele coloque o token que você obteve do POST do 1o. passo.
 clique no botão Send
